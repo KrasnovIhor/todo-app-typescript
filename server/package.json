@@ -5,7 +5,9 @@
 	"main": "index.js",
 	"scripts": {
 		"watch": "tsc -w",
-		"start": "nodemon dist/index.js"
+		"build": "tsc",
+		"start": "nodemon dist/index.js",
+		"dev:watch": "concurrently \"npm run watch\" \"npm run start\""
 	},
 	"author": "",
 	"license": "ISC",
@@ -22,6 +24,7 @@
 		"@types/express": "^4.17.13",
 		"@types/node": "^17.0.10",
 		"@types/uuid": "^8.3.4",
+		"concurrently": "^7.0.0",
 		"nodemon": "^1.19.4"
 	}
 }
