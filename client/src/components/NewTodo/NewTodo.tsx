@@ -1,12 +1,13 @@
 import React, { useRef } from 'react';
+import { Button, Form } from 'react-bootstrap';
 
-import './NewTodo.css';
+import styles from './NewTodo.module.scss';
 
 interface NewTodoProps {
 	onAddTodo: (text: string) => void;
 }
 
-const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
+export const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
 	const todoInputRef = useRef<HTMLInputElement>(null);
 
 	const todoSubmitHandler = (e: React.FormEvent) => {
@@ -18,14 +19,12 @@ const NewTodo: React.FC<NewTodoProps> = ({ onAddTodo }) => {
 	};
 
 	return (
-		<form onSubmit={todoSubmitHandler}>
-			<div className='form-control'>
-				<label htmlFor='todo-text'>Todo Text</label>
-				<input ref={todoInputRef} type='text' id='todo-text' />
-			</div>
-			<button type='submit'>Add Todo</button>
-		</form>
+		<Form className={styles.root} onSubmit={todoSubmitHandler}>
+			<Form.Group className={styles['form-control']}>
+				<Form.Label htmlFor='todo-text'>Todo Text</Form.Label>
+				<Form.Control ref={todoInputRef} type='text' id='todo-text' />
+			</Form.Group>
+			<Button type='submit'>Add Todo</Button>
+		</Form>
 	);
 };
-
-export default NewTodo;

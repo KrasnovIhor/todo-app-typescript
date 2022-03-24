@@ -1,12 +1,8 @@
-import {
-	TodoPostResponse,
-	TodoDeleteResponse,
-	Todo,
-	TodoGetResponse,
-} from './../models/todo.model';
-import { $host } from '../http';
+import { TodoPostResponse, TodoDeleteResponse, Todo, TodoGetResponse } from 'types';
 import { AsyncThunkPayloadCreator } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+
+import { $host } from 'host';
 
 export const readTodosService: AsyncThunkPayloadCreator<Todo[]> = async (
 	_,

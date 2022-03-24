@@ -1,0 +1,30 @@
+.root {
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+	button,
+	.placeholder {
+		background-color: #50005a;
+		border-color: #50005a;
+		padding: 0.5rem 1.5rem;
+
+		&:hover,
+		&:active {
+			background-color: #6a0a77;
+			border-color: #6a0a77;
+		}
+	}
+
+	p {
+		margin: 0;
+		font-weight: 600;
+	}
+
+	.card-body {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	&:not(:last-of-type) {
+		margin-bottom: 1rem;
+	}
+}

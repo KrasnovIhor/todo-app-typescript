@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { removeTodoService, addTodoService, readTodosService } from '../../services/todos';
+import { removeTodoService, addTodoService, readTodosService } from 'services';
 
-import { Todo } from './../../models/todo.model';
+import { Todo } from 'types';
 
 export const readTodos = createAsyncThunk('todos/readTodos', readTodosService);
 export const addTodo = createAsyncThunk('todos/addTodo', addTodoService);
@@ -32,7 +32,7 @@ export const todoSlice = createSlice({
 				state.todos = payload!;
 				state.status = 'succeeded';
 			})
-			.addCase(readTodos.rejected, (state, action) => {
+			.addCase(readTodos.rejected, (state) => {
 				state.status = 'failed';
 			})
 			.addCase(addTodo.fulfilled, (state, { payload }) => {
@@ -43,5 +43,3 @@ export const todoSlice = createSlice({
 			});
 	},
 });
-
-export default todoSlice.reducer;

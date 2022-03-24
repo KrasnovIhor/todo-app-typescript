@@ -1,25 +1,37 @@
-import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Todo } from '../../models/todo.model';
+import { TodoItem } from 'components';
+import { removeTodo } from 'store/slices/todoSlice';
 
-import './TodoList.css';
+import { Todo, TodosState } from 'types';
 
-interface TodoListProps {
-	items: Todo[];
-	onremoveTodoService: (id: string) => void;
+import styles from './TodoList.module.scss';
+import { TodoListPlaceholder } from './TodoListPlaceholder';
+
+interface TodoListComponents {
+	Placeholder: typeof TodoListPlaceholder;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ items, onremoveTodoService }) => {
+export const TodoList: React.FC & TodoListComponents = () => {
+	const dispatch = useDispatch();
+	const todos = useSelector<{ todos: TodosState }, Todo[]>((state) => state.todos.todos);
+
+	const todoDeleteHandler = (id: string) => {
+		dispatch(removeTodo(id));
+	};
+
 	return (
-		<ul>
-			{items.map((todo) => (
-				<li key={todo._id}>
-					<span>{todo.text}</span>
-					<button onClick={() => onremoveTodoService(todo._id)}>DELETE</button>
-				</li>
+		<ul className={styles.root}>
+			{todos.map((todo) => (
+				<TodoItem
+					key={todo._id}
+					todoId={todo._id}
+					text={todo.text}
+					removeHandler={todoDeleteHandler}
+				/>
 			))}
 		</ul>
 	);
 };
 
-export default TodoList;
+TodoList.Placeholder = TodoListPlaceholder;
