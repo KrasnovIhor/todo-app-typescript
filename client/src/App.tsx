@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, getTodos, removeTodo, TodosState } from './store/slices/todoSlice';
+import { addTodo, readTodos, removeTodo, TodosState } from './store/slices/todoSlice';
 
 import NewTodo from './components/NewTodo/NewTodo';
 import TodoList from './components/TodoList/TodoList';
@@ -24,7 +24,7 @@ const App: FC = () => {
 	};
 
 	useEffect(() => {
-		dispatch(getTodos());
+		dispatch(readTodos());
 	}, [dispatch]);
 
 	return (
@@ -37,7 +37,7 @@ const App: FC = () => {
 			) : status === 'failed' ? (
 				<p className='text-center'>Unable to load todos =(</p>
 			) : (
-				<TodoList onDeleteTodo={todoDeleteHandler} items={todos} />
+				<TodoList onremoveTodoService={todoDeleteHandler} items={todos} />
 			)}
 		</div>
 	);

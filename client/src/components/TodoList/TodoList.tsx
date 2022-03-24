@@ -6,16 +6,16 @@ import './TodoList.css';
 
 interface TodoListProps {
 	items: Todo[];
-	onDeleteTodo: (id: string) => void;
+	onremoveTodoService: (id: string) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ items, onDeleteTodo }) => {
+const TodoList: React.FC<TodoListProps> = ({ items, onremoveTodoService }) => {
 	return (
 		<ul>
 			{items.map((todo) => (
 				<li key={todo._id}>
 					<span>{todo.text}</span>
-					<button onClick={() => onDeleteTodo(todo._id)}>DELETE</button>
+					<button onClick={() => onremoveTodoService(todo._id)}>DELETE</button>
 				</li>
 			))}
 		</ul>

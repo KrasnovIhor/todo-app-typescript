@@ -18,7 +18,7 @@ export const createTodo: RequestHandler = async (req, res, next) => {
 	}
 };
 
-export const getTodos: RequestHandler = async (_, res, _2) => {
+export const readTodosService: RequestHandler = async (_, res, _2) => {
 	try {
 		const todos = client.db().collection('todos');
 		const allTodos = await todos.find().toArray();
@@ -48,7 +48,7 @@ export const updateTodo: RequestHandler<{ id: string }> = async (req, res, next)
 	}
 };
 
-export const deleteTodo: RequestHandler = async (req, res, next) => {
+export const removeTodoService: RequestHandler = async (req, res, next) => {
 	try {
 		const todos = client.db().collection('todos');
 		const todoId = new ObjectId(req.params.id);

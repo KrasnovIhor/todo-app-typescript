@@ -1,22 +1,60 @@
-import { TodoPostResponse, TodoDeleteResponse } from './../models/todo.model';
+import {
+	TodoPostResponse,
+	TodoDeleteResponse,
+	Todo,
+	TodoGetResponse,
+} from './../models/todo.model';
 import { $host } from '../http';
+import { AsyncThunkPayloadCreator } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 
-export const postTodo = async (text: string) => {
+export const readTodosService: AsyncThunkPayloadCreator<Todo[]> = async (
+	_,
+	{ rejectWithValue }
+) => {
+	try {
+		const response = await $host.get<TodoGetResponse>('todos');
+
+		return response.data.todos;
+	} catch (err: any) {
+		let error: AxiosError = err;
+		if (!error.response) {
+			throw err;
+		}
+		return rejectWithValue(error.response.data);
+	}
+};
+
+export const addTodoService: AsyncThunkPayloadCreator<Todo, string, {}> = async (
+	text: string,
+	{ rejectWithValue }
+) => {
 	try {
 		const response = await $host.post<TodoPostResponse>('todos', { text });
 
 		return response.data.createdTodo;
-	} catch (e) {
-		console.error(e);
+	} catch (err: any) {
+		let error: AxiosError = err;
+		if (!error.response) {
+			throw err;
+		}
+		return rejectWithValue(error.response.data);
 	}
 };
 
-export const deleteTodo = async (id: string) => {
+export const removeTodoService: AsyncThunkPayloadCreator<string, string> = async (
+	id: string,
+	{ rejectWithValue }
+) => {
 	try {
 		const response = await $host.delete<TodoDeleteResponse>(`todos/${id}`);
 
 		return response.data.id;
-	} catch (e) {
-		console.error(e);
+	} catch (err: any) {
+		let error: AxiosError = err;
+		if (!error.response) {
+			throw err;
+		}
+		return rejectWithValue(error.response.data);
 	}
 };
